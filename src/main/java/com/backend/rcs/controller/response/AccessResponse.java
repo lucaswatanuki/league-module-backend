@@ -1,4 +1,4 @@
-package com.rcs.back.rcs.controller.response;
+package com.backend.rcs.controller.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

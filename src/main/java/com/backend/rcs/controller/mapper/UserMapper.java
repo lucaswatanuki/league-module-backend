@@ -1,8 +1,8 @@
-package com.rcs.back.rcs.controller.mapper;
+package com.backend.rcs.controller.mapper;
 
-import com.rcs.back.rcs.controller.request.UserRequest;
-import com.rcs.back.rcs.controller.response.UserResponse;
-import com.rcs.back.rcs.document.UserDocument;
+import com.backend.rcs.document.UserDocument;
+import com.backend.rcs.controller.request.UserRequest;
+import com.backend.rcs.controller.response.UserResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

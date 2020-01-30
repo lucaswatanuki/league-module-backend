@@ -1,7 +1,7 @@
-package com.rcs.back.rcs.service;
+package com.backend.rcs.service;
 
-import com.rcs.back.rcs.controller.request.AccessRequest;
-import com.rcs.back.rcs.controller.response.AccessResponse;
+import com.backend.rcs.controller.request.AccessRequest;
+import com.backend.rcs.controller.response.AccessResponse;
 
 import java.util.List;
 

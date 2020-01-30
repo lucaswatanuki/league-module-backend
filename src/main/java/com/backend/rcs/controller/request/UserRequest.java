@@ -1,10 +1,10 @@
-package com.rcs.back.rcs.controller.response;
+package com.backend.rcs.controller.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class UserResponse {
+public class UserRequest {
     @JsonProperty("id")
     private String id;
     @JsonProperty("name")

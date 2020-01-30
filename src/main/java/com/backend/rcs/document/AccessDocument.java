@@ -1,4 +1,4 @@
-package com.rcs.back.rcs.document;
+package com.backend.rcs.document;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

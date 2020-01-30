@@ -1,8 +1,7 @@
-package com.rcs.back.rcs.service;
+package com.backend.rcs.service;
 
-import com.rcs.back.rcs.controller.request.UserRequest;
-import com.rcs.back.rcs.controller.response.UserResponse;
-import org.springframework.stereotype.Service;
+import com.backend.rcs.controller.request.UserRequest;
+import com.backend.rcs.controller.response.UserResponse;
 
 import java.util.List;
 

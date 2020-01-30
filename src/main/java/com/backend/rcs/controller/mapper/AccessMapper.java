@@ -1,4 +1,4 @@
-package com.rcs.back.rcs.controller.mapper;
+package com.backend.rcs.controller.mapper;
 
 import org.mapstruct.Mapper;
 

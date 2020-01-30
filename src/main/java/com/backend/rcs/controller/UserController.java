@@ -1,4 +1,4 @@
-package com.rcs.back.rcs.controller;
+package com.backend.rcs.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

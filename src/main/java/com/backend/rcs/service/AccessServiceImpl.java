@@ -1,11 +1,9 @@
-package com.rcs.back.rcs.service;
+package com.backend.rcs.service;
 
-import com.rcs.back.rcs.controller.request.AccessRequest;
-import com.rcs.back.rcs.controller.response.AccessResponse;
-import com.rcs.back.rcs.controller.response.UserResponse;
-import com.rcs.back.rcs.document.AccessDocument;
-import com.rcs.back.rcs.document.AccessDocument;
-import com.rcs.back.rcs.repository.AccessRepository;
+import com.backend.rcs.controller.response.AccessResponse;
+import com.backend.rcs.document.AccessDocument;
+import com.backend.rcs.repository.AccessRepository;
+import com.backend.rcs.controller.request.AccessRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
