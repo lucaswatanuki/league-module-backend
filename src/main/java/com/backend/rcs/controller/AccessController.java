@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/access")
+@RequestMapping(path = "/api/access")
 public class AccessController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class AccessController {
         return accessService.findById(id);
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public List<AccessResponse> getAll(){
         return accessService.findAllAccess();
     }

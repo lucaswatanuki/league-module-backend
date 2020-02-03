@@ -5,6 +5,7 @@ import com.backend.rcs.repository.AccessRepository;
 import com.backend.rcs.repository.UserRepository;
 import com.backend.rcs.controller.request.UserRequest;
 import com.backend.rcs.controller.response.UserResponse;
+import com.backend.rcs.utils.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,49 +27,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse save(UserRequest userRequest) {
-        return toUserResponse(userRepository.save(toUserDocument(userRequest)));
+        return Converter.toUserResponse(userRepository.save(Converter.toUserDocument(userRequest)));
     }
 
     @Override
     public UserResponse findById(String id) {
-        return toUserResponse(Objects.requireNonNull(userRepository.findById(id).orElse(null)));
+        return Converter.toUserResponse(Objects.requireNonNull(userRepository.findById(id).orElse(null)));
     }
 
     @Override
     public List<UserResponse> findAllUsers() {
         List<UserResponse> userResponseList = new ArrayList<>();
         userRepository.findAll().forEach(userDocument -> {
-            userResponseList.add(toUserResponse(userDocument));
+            userResponseList.add(Converter.toUserResponse(userDocument));
         });
         return userResponseList;
     }
 
     @Override
     public UserResponse update(UserRequest userRequest) {
-        return toUserResponse(userRepository.save(toUserDocument(userRequest)));
+        return Converter.toUserResponse(userRepository.save(Converter.toUserDocument(userRequest)));
     }
 
     @Override
     public void delete(String id) {
         userRepository.deleteById(id);
-    }
-
-    public UserResponse toUserResponse(UserDocument userDocument){
-        UserResponse userResponse = new UserResponse();
-        userResponse.setId(userDocument.getId());
-        userResponse.setAccess(userDocument.getAccess().getStatus());
-        userResponse.setEmail(userDocument.getEmail());
-        userResponse.setName(userDocument.getName());
-        return userResponse;
-    }
-
-    public UserDocument toUserDocument(UserRequest userRequest){
-        UserDocument userDocument = new UserDocument();
-        userDocument.setId(userRequest.getId());
-        userDocument.setEmail(userDocument.getEmail());
-        userDocument.setAccess(accessRepository.findById(userRequest.getAccess()).orElse(null));
-        userDocument.setName(userRequest.getName());
-        return userDocument;
     }
 
 }

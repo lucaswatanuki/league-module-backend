@@ -4,15 +4,20 @@ import com.backend.rcs.controller.response.AccessResponse;
 import com.backend.rcs.document.AccessDocument;
 import com.backend.rcs.repository.AccessRepository;
 import com.backend.rcs.controller.request.AccessRequest;
+import com.backend.rcs.utils.Converter;
+import javafx.util.converter.LocalDateStringConverter;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Service
-public class AccessServiceImpl implements AccessService{
+public class AccessServiceImpl implements AccessService {
 
     private AccessRepository accessRepository;
 
@@ -23,49 +28,35 @@ public class AccessServiceImpl implements AccessService{
 
     @Override
     public AccessResponse save(AccessRequest accessRequest) {
-        return toAccessResponse(accessRepository.save(toAccessDocument(accessRequest)));
+        AccessDocument accessDocument = Converter.toAccessDocument(accessRequest);
+        accessDocument.setExpirationDate(accessDocument.getPaymentDate().minusDays(1L));
+        accessDocument.setStatus("paid");
+        return Converter.toAccessResponse((accessRepository.save(accessDocument)));
     }
 
     @Override
     public AccessResponse findById(String id) {
-        return toAccessResponse(Objects.requireNonNull(accessRepository.findById(id).orElse(null)));
+        return Converter.toAccessResponse(Objects.requireNonNull(accessRepository.findById(id).orElse(null)));
     }
 
     @Override
     public List<AccessResponse> findAllAccess() {
         List<AccessResponse> accessResponseList = new ArrayList<>();
         accessRepository.findAll().forEach(accessDocument -> {
-            accessResponseList.add(toAccessResponse(accessDocument));
+            accessResponseList.add(Converter.toAccessResponse(accessDocument));
         });
         return accessResponseList;
     }
 
     @Override
     public AccessResponse update(AccessRequest accessRequest) {
-        return toAccessResponse(accessRepository.save(toAccessDocument(accessRequest)));
+        return Converter.toAccessResponse(accessRepository.save(Converter.toAccessDocument(accessRequest)));
     }
 
     @Override
     public void delete(String id) {
         accessRepository.deleteById(id);
-
     }
 
-    public AccessResponse toAccessResponse(AccessDocument accessDocument){
-        AccessResponse accessResponse = new AccessResponse();
-        accessResponse.setId(accessDocument.getId());
-        accessResponse.setExpirationDate(accessDocument.getExpirationDate());
-        accessResponse.setPaymentDate(accessDocument.getPaymentDate());
-        accessResponse.setStatus(accessDocument.getStatus());
-        return accessResponse;
-    }
 
-    public AccessDocument toAccessDocument(AccessRequest accessRequest){
-        AccessDocument accessDocument = new AccessDocument();
-        accessDocument.setId(accessRequest.getId());
-        accessDocument.setExpirationDate(accessRequest.getExpirationDate());
-        accessDocument.setPaymentDate(accessRequest.getPaymentDate());
-        accessDocument.setStatus(accessRequest.getStatus());
-        return accessDocument;
-    }
 }
