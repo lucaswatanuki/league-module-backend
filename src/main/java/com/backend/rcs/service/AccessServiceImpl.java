@@ -29,7 +29,7 @@ public class AccessServiceImpl implements AccessService {
     @Override
     public AccessResponse save(AccessRequest accessRequest) {
         AccessDocument accessDocument = Converter.toAccessDocument(accessRequest);
-        accessDocument.setExpirationDate(accessDocument.getPaymentDate().minusDays(1L));
+        accessDocument.setExpirationDate(accessDocument.getPaymentDate().plusMonths(1L));
         accessDocument.setStatus("paid");
         return Converter.toAccessResponse((accessRepository.save(accessDocument)));
     }
