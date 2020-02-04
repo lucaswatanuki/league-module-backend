@@ -4,8 +4,6 @@ import com.backend.rcs.controller.response.AccessResponse;
 import com.backend.rcs.document.AccessDocument;
 import com.backend.rcs.repository.AccessRepository;
 import com.backend.rcs.controller.request.AccessRequest;
-import com.backend.rcs.utils.Converter;
-import javafx.util.converter.LocalDateStringConverter;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,29 +26,29 @@ public class AccessServiceImpl implements AccessService {
 
     @Override
     public AccessResponse save(AccessRequest accessRequest) {
-        AccessDocument accessDocument = Converter.toAccessDocument(accessRequest);
+        AccessDocument accessDocument = toAccessDocument(accessRequest);
         accessDocument.setExpirationDate(accessDocument.getPaymentDate().plusMonths(1L));
         accessDocument.setStatus("paid");
-        return Converter.toAccessResponse((accessRepository.save(accessDocument)));
+        return toAccessResponse((accessRepository.save(accessDocument)));
     }
 
     @Override
     public AccessResponse findById(String id) {
-        return Converter.toAccessResponse(Objects.requireNonNull(accessRepository.findById(id).orElse(null)));
+        return toAccessResponse(Objects.requireNonNull(accessRepository.findById(id).orElse(null)));
     }
 
     @Override
     public List<AccessResponse> findAllAccess() {
         List<AccessResponse> accessResponseList = new ArrayList<>();
         accessRepository.findAll().forEach(accessDocument -> {
-            accessResponseList.add(Converter.toAccessResponse(accessDocument));
+            accessResponseList.add(toAccessResponse(accessDocument));
         });
         return accessResponseList;
     }
 
     @Override
     public AccessResponse update(AccessRequest accessRequest) {
-        return Converter.toAccessResponse(accessRepository.save(Converter.toAccessDocument(accessRequest)));
+        return toAccessResponse(accessRepository.save(toAccessDocument(accessRequest)));
     }
 
     @Override
@@ -59,5 +57,22 @@ public class AccessServiceImpl implements AccessService {
     }
 
 
+    public static AccessResponse toAccessResponse(AccessDocument accessDocument) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+        AccessResponse accessResponse = new AccessResponse();
+        accessResponse.setId(accessDocument.getId());
+        accessResponse.setExpirationDate(accessDocument.getExpirationDate().format(format));
+        accessResponse.setPaymentDate(accessDocument.getPaymentDate().format(format));
+        accessResponse.setStatus(accessDocument.getStatus());
+        return accessResponse;
+    }
+
+    public static AccessDocument toAccessDocument(AccessRequest accessRequest) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // LocalDate data = LocalDate.parse(accessRequest.getExpirationDate(), format);
+        AccessDocument accessDocument = new AccessDocument();
+        accessDocument.setPaymentDate(LocalDate.parse(accessRequest.getPaymentDate(), format));
+        return accessDocument;
+    }
 }
