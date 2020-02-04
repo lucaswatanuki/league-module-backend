@@ -30,6 +30,11 @@ public class UserController {
         return userService.findAllUsers();
     }
 
+    @GetMapping("/access")
+    public List<UserResponse> getUserByAccess(String accessId) {
+        return userService.findUsersByAccess(accessId);
+    }
+
     @PutMapping("/{id}")
     public UserResponse update(@PathVariable("id") String id, @RequestBody UserRequest request) {
         request.setId(id);

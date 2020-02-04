@@ -39,6 +39,15 @@ public class AccessServiceImpl implements AccessService {
     }
 
     @Override
+    public List<AccessResponse> findByStatus(String status) {
+        List<AccessResponse> accessResponseList = new ArrayList<>();
+        accessRepository.findAll().stream()
+                .filter(accessDocument -> accessDocument.getStatus().contains(status))
+                .forEach(accessDocument -> accessResponseList.add(converter.toAccessResponse(accessDocument)));
+        return accessResponseList;
+    }
+
+    @Override
     public List<AccessResponse> findAllAccess() {
         List<AccessResponse> accessResponseList = new ArrayList<>();
         accessRepository.findAll().forEach(accessDocument -> accessResponseList.add(converter.toAccessResponse(accessDocument)));

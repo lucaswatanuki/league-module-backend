@@ -8,6 +8,7 @@ import java.util.List;
 public interface UserService {
     UserResponse save(UserRequest userRequest);
     UserResponse findById(String id);
+    List<UserResponse> findUsersByAccess(String access);
     List<UserResponse> findAllUsers();
     UserResponse update(UserRequest userRequest);
     void delete(String id);

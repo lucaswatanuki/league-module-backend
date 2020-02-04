@@ -30,6 +30,11 @@ public class AccessController {
         return accessService.findAllAccess();
     }
 
+    @GetMapping("")
+    public List<AccessResponse> getAllByStatus(@RequestParam("status") String status) {
+        return accessService.findByStatus(status);
+    }
+
     @PutMapping("/{id}")
     public AccessResponse update(@PathVariable("id") String id, @RequestBody AccessRequest request) {
         request.setId(id);
