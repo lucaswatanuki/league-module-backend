@@ -8,6 +8,7 @@ import com.backend.rcs.utils.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -46,7 +47,12 @@ public class AccessServiceImpl implements AccessService {
 
     @Override
     public AccessResponse update(AccessRequest accessRequest) {
-        return converter.toAccessResponse(accessRepository.save(converter.toAccessDocument(accessRequest)));
+        AccessDocument accessDocument = converter.toAccessDocument(accessRequest);
+        accessDocument.setExpirationDate(accessDocument.getPaymentDate().plusMonths(1L));
+        if (accessDocument.getExpirationDate().isBefore(LocalDate.now())){
+            accessDocument.setStatus("expired");
+        } else accessDocument.setStatus("paid");
+        return converter.toAccessResponse(accessRepository.save(accessDocument));
     }
 
     @Override

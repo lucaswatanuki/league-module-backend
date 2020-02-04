@@ -37,6 +37,7 @@ public class Converter {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         // LocalDate data = LocalDate.parse(accessRequest.getExpirationDate(), format);
         AccessDocument accessDocument = new AccessDocument();
+        accessDocument.setId(accessRequest.getId());
         accessDocument.setPaymentDate(LocalDate.parse(accessRequest.getPaymentDate(), format));
         return accessDocument;
     }
