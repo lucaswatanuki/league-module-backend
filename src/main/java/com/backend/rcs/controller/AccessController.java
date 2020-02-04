@@ -1,11 +1,8 @@
 package com.backend.rcs.controller;
 
 import com.backend.rcs.controller.request.AccessRequest;
-import com.backend.rcs.controller.request.UserRequest;
-import com.backend.rcs.controller.response.AccessResponse;
 import com.backend.rcs.controller.response.AccessResponse;
 import com.backend.rcs.service.AccessService;
-import com.backend.rcs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,22 +16,28 @@ public class AccessController {
     private AccessService accessService;
 
     @PostMapping("")
-    public AccessResponse post(@RequestBody AccessRequest request){
+    public AccessResponse post(@RequestBody AccessRequest request) {
         return accessService.save(request);
     }
 
     @GetMapping("/{id}")
-    public AccessResponse getUserById(@PathVariable("id") String id){
+    public AccessResponse getUserById(@PathVariable("id") String id) {
         return accessService.findById(id);
     }
 
     @GetMapping("/all")
-    public List<AccessResponse> getAll(){
+    public List<AccessResponse> getAll() {
         return accessService.findAllAccess();
     }
 
+    @PutMapping("/{id}")
+    public AccessResponse update(@PathVariable("id") String id, @RequestBody AccessRequest request) {
+        request.setId(id);
+        return accessService.update(request);
+    }
+
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") String id){
+    public void delete(@PathVariable("id") String id) {
         accessService.delete(id);
     }
 }
