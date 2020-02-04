@@ -53,5 +53,4 @@ public class AccessServiceImpl implements AccessService {
     public void delete(String id) {
         accessRepository.deleteById(id);
     }
-
 }

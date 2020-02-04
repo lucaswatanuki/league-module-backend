@@ -15,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 
 @Component
 public class Converter {
-
     private final AccessRepository accessRepository;
 
     @Autowired
@@ -59,6 +58,4 @@ public class Converter {
         userDocument.setName(userRequest.getName());
         return userDocument;
     }
-
-
 }
