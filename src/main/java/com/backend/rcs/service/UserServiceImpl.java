@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse save(UserRequest userRequest) {
-        return Converter.toUserResponse(userRepository.save(Converter.toUserDocument(userRequest)));
+        return Converter.toUserResponse(userRepository.save(toUserDocument(userRequest)));
     }
 
     @Override
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse update(UserRequest userRequest) {
-        return Converter.toUserResponse(userRepository.save(Converter.toUserDocument(userRequest)));
+        return Converter.toUserResponse(userRepository.save(toUserDocument(userRequest)));
     }
 
     @Override
@@ -54,4 +54,12 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
+    public UserDocument toUserDocument(UserRequest userRequest){
+        UserDocument userDocument = new UserDocument();
+        userDocument.setId(userRequest.getId());
+        userDocument.setEmail(userRequest.getEmail());
+        userDocument.setAccess(accessRepository.findById(userRequest.getAccess()).orElse(null));
+        userDocument.setName(userRequest.getName());
+        return userDocument;
+    }
 }

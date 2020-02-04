@@ -14,8 +14,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Converter {
+
+    private AccessRepository accessRepository;
+
     @Autowired
-    private static AccessRepository accessRepository;
+    public Converter(AccessRepository accessRepository) {
+        this.accessRepository = accessRepository;
+    }
 
     public static AccessResponse toAccessResponse(AccessDocument accessDocument) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -45,12 +50,5 @@ public class Converter {
         return userResponse;
     }
 
-    public static UserDocument toUserDocument(UserRequest userRequest){
-        UserDocument userDocument = new UserDocument();
-        userDocument.setId(userRequest.getId());
-        userDocument.setEmail(userRequest.getEmail());
-        userDocument.setAccess(accessRepository.findById(userRequest.getAccess()).orElse(null));
-        userDocument.setName(userRequest.getName());
-        return userDocument;
-    }
+
 }
