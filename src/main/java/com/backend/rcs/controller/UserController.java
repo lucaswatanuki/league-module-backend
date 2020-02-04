@@ -16,22 +16,28 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("")
-    public UserResponse post(@RequestBody UserRequest request){
+    public UserResponse post(@RequestBody UserRequest request) {
         return userService.save(request);
     }
 
     @GetMapping("/{id}")
-    public UserResponse getUserById(@PathVariable("id") String id){
+    public UserResponse getUserById(@PathVariable("id") String id) {
         return userService.findById(id);
     }
 
     @GetMapping("/all")
-    public List<UserResponse> getAll(){
+    public List<UserResponse> getAll() {
         return userService.findAllUsers();
     }
 
+    @PutMapping("/{id}")
+    public UserResponse update(@PathVariable("id") String id, @RequestBody UserRequest request) {
+        request.setId(id);
+        return userService.update(request);
+    }
+
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable("id") String id){
+    public void deleteById(@PathVariable("id") String id) {
         userService.delete(id);
     }
 }
