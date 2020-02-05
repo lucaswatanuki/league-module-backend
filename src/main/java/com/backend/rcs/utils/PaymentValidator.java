@@ -26,7 +26,7 @@ public class PaymentValidator {
         this.accessRepository = accessRepository;
     }
 
-    @Scheduled(fixedDelay = MINUTE)
+    @Scheduled(fixedDelay = HOUR)
     public void verifyPaymentPerMin() {
         accessRepository.findAll().stream()
                 .filter(accessDocument -> accessDocument.getStatus().contains("paid"))

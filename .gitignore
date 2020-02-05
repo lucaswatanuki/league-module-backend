@@ -4,6 +4,10 @@ target/
 !**/src/main/**
 !**/src/test/**
 
+### Sensitive Data ###
+src/main/resources/application.properties
+
+
 ### STS ###
 .apt_generated
 .classpath
