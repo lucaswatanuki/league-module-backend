@@ -30,8 +30,8 @@ public class UserController {
         return userService.findAllUsers();
     }
 
-    @GetMapping("/access")
-    public List<UserResponse> getUserByAccess(String accessId) {
+    @GetMapping("")
+    public List<UserResponse> getUserByAccess(@RequestParam("access") String accessId) {
         return userService.findUsersByAccess(accessId);
     }
 

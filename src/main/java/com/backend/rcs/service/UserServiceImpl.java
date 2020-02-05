@@ -2,7 +2,6 @@ package com.backend.rcs.service;
 
 import com.backend.rcs.controller.request.UserRequest;
 import com.backend.rcs.controller.response.UserResponse;
-import com.backend.rcs.document.UserDocument;
 import com.backend.rcs.repository.UserRepository;
 import com.backend.rcs.utils.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class UserServiceImpl implements UserService {
