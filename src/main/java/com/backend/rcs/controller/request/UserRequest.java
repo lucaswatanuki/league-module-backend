@@ -1,13 +1,12 @@
 package com.backend.rcs.controller.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class UserRequest {
     @JsonProperty("id")
     private String id;
